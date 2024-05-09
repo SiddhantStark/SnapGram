@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Loader from "@/components/shared/Loader";
 import { Link } from "react-router-dom";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 const SignupForm = () => {
   // 1.Define your form.
@@ -26,10 +27,11 @@ const SignupForm = () => {
   });
 
   // 2.Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
    // creaetes the user
     //console.log(values);
-    // const newUser = await createNewUserAccount(values); 
+    const newUser = await createUserAccount(values); 
+    console.log(newUser);
   }
 
   const isLoading=false;
