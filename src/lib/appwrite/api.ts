@@ -40,16 +40,28 @@ export async function saveUserToDB(user: {
     username?: string;
 }) {
     try{
-        const newUser = await databases.createDocument{
+        const newUser = await databases.createDocument(
             appwriteConfig.databaseId,
             appwriteConfig.userCollectionId,
             ID.unique(),
             user,
-        }
-
+        );
         return newUser;
     }
     catch(error){
         console.log(error);
     }
 }
+
+export async function signInAccount(user: {
+    email: string;
+    password: string;
+}){
+    try {
+        const session = await account.createEmailPasswordSession(user.email, user.password);
+        return session;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
